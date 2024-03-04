@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.powtorzeniematerialu.ex1;
+package pl.akademiaspecjalistowit.powtorzeniematerialu;
 
 public class NotImplementedException extends RuntimeException {
     public NotImplementedException(String message) {

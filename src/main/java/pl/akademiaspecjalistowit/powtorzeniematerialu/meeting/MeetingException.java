@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.powtorzeniematerialu.ex1.meeting;
+package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 public class MeetingException extends RuntimeException {
     public MeetingException(String message) {

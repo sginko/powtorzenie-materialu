@@ -1,11 +1,11 @@
-package pl.akademiaspecjalistowit.powtorzeniematerialu.ex1;
+package pl.akademiaspecjalistowit.powtorzeniematerialu;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import pl.akademiaspecjalistowit.powtorzeniematerialu.ex1.meeting.Meeting;
-import pl.akademiaspecjalistowit.powtorzeniematerialu.ex1.meeting.MeetingService;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
 
 public class MeetingApp {
 

@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.powtorzeniematerialu.ex1.meeting;
+package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

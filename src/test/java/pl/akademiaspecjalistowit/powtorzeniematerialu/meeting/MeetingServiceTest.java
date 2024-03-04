@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.powtorzeniematerialu.ex1.meeting;
+package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
