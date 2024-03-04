@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.powtorzeniematerialu;
+package pl.akademiaspecjalistowit.powtorzeniematerialu.app;
 
 import java.util.HashSet;
 import java.util.List;
