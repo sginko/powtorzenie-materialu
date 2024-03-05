@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
 
@@ -72,7 +71,6 @@ public class MeetingApp {
     }
 
     private void createMeeting(Scanner scanner) {
-        List<Meeting> allMeetings = meetingService.getAllMeetings();
         System.out.println("Tworzenie nowego spotkania...");
         System.out.println("Podaj nazwę spotkania: ");
         String meetingName = scanner.nextLine();
@@ -88,21 +86,15 @@ public class MeetingApp {
         while (!stop) {
             System.out.println("Podaj email uczestnika do zaprosznia: ");
             participantEmail.add(scanner.nextLine());
-            for (Meeting meeting : allMeetings) {
-                if (meeting.equals(participantEmail)) {
-                    System.out.println("Podaj email uczestnika do zaprosznia: ");
-                    throw new RuntimeException("Don't create meeting");
-                }
-            }
             System.out.println("Chcesz dodać więcej uczestników?: (T/N)");
             String decission = scanner.nextLine();
-            if (decission.equalsIgnoreCase("N")) {
+            if (decission.equals("N")) {
                 stop = true;
             }
         }
 
         Meeting newMeeting =
-                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
+            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
 
         System.out.println("Spotkanie " + newMeeting + " zostało utworzone.");
     }
