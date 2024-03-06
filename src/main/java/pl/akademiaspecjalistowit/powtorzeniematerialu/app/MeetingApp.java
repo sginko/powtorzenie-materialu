@@ -1,9 +1,7 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.app;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
 
@@ -100,7 +98,12 @@ public class MeetingApp {
     }
 
     private void deleteMeeting(Scanner scanner) {
-        System.out.println("Usuwanie spotkań nie zostało jeszcze zaimplementowane");
+        System.out.println("Podaj Id: ");
+        UUID inputId = UUID.fromString(scanner.nextLine());
+        meetingService.deleteMeetingById(inputId);
+        System.out.println("Spotkanie usunięto");
+//        meetingService.getAllMeetings();
+//        System.out.println("Usuwanie spotkań nie zostało jeszcze zaimplementowane");
     }
 
 }

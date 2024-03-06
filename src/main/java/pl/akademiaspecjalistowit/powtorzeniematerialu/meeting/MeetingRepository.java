@@ -1,8 +1,6 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MeetingRepository {
 
@@ -18,5 +16,23 @@ public class MeetingRepository {
 
     public List<Meeting> findAll() {
         return meetings.values().stream().toList();
+    }
+
+    public void delete(Meeting meeting) {
+        meetings.remove(meeting.getMeetingId());
+    }
+
+    public Meeting findById(UUID meetingId) {
+        for (Meeting meeting : meetings.values()) {
+            if (meeting.getMeetingId().equals(meetingId)) {
+                return meeting;
+            }
+        }
+        throw  new MeetingException("Not found meeting");
+    }
+
+    public void deleteById(UUID meetingId) {
+        Meeting meeting = findById(meetingId);
+        delete(meeting);
     }
 }

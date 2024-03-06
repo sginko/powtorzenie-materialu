@@ -1,7 +1,6 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MeetingService {
 
@@ -13,7 +12,7 @@ public class MeetingService {
 
     public Meeting createNewMeeting(String meetingName, String meetingDateTimeString, Set<String> participantEmail,
                                     String meetingDuration) {
-        Meeting meeting = new Meeting(meetingName,meetingDateTimeString, participantEmail, meetingDuration);
+        Meeting meeting = new Meeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
         meetingRepository.save(meeting);
         return meeting;
     }
@@ -21,5 +20,9 @@ public class MeetingService {
 
     public List<Meeting> getAllMeetings() {
         return meetingRepository.findAll();
+    }
+
+    public void deleteMeetingById(UUID meetingId) {
+        meetingRepository.deleteById(meetingId);
     }
 }
