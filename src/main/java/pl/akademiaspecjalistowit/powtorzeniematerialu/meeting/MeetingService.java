@@ -22,4 +22,8 @@ public class MeetingService {
     public List<Meeting> getAllMeetings() {
         return meetingRepository.findAll();
     }
+
+    public List<Meeting> getMeetingsByEmail(String email){
+        return meetingRepository.findByEmail(email);
+    }
 }
