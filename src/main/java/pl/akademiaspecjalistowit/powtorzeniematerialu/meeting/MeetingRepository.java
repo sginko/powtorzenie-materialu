@@ -18,21 +18,7 @@ public class MeetingRepository {
         return meetings.values().stream().toList();
     }
 
-    public void delete(Meeting meeting) {
-        meetings.remove(meeting.getMeetingId());
-    }
-
-    public Meeting findById(UUID meetingId) {
-        for (Meeting meeting : meetings.values()) {
-            if (meeting.getMeetingId().equals(meetingId)) {
-                return meeting;
-            }
-        }
-        throw  new MeetingException("Not found meeting");
-    }
-
-    public void deleteById(UUID meetingId) {
-        Meeting meeting = findById(meetingId);
-        delete(meeting);
+    public Map<Long, Meeting> getMeetings() {
+        return meetings;
     }
 }

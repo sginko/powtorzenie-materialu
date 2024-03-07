@@ -2,9 +2,8 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +27,7 @@ class MeetingServiceTest {
 
         // WHEN
         Meeting result =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
 
         // THEN
         List<Meeting> allMeetings = meetingService.getAllMeetings();
@@ -43,7 +42,7 @@ class MeetingServiceTest {
         Set<String> participantEmails = Set.of("test123@example.com");
         String meetingDuration = "02:00";
         Meeting existingMeeting =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
 
         String overlappingMeetingName = "Test Meeting";
         String overlappingMeetingDateTimeString = "01:01:2024 12:10";
@@ -52,10 +51,10 @@ class MeetingServiceTest {
 
         // WHEN
         Meeting overlappingMeeting = meetingService
-            .createNewMeeting(overlappingMeetingName,
-                overlappingMeetingDateTimeString,
-                overlappingParticipantEmails,
-                OverlappingMeetingDuration);
+                .createNewMeeting(overlappingMeetingName,
+                        overlappingMeetingDateTimeString,
+                        overlappingParticipantEmails,
+                        OverlappingMeetingDuration);
 
         // THEN
         List<Meeting> allMeetings = meetingService.getAllMeetings();
@@ -70,7 +69,7 @@ class MeetingServiceTest {
         Set<String> participantEmails = Set.of("test123@example.com");
         String meetingDuration = "02:00";
         Meeting existingMeeting =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
 
         String overlappingMeetingName = "Test Meeting";
         String overlappingMeetingDateTimeString = "01:01:2024 12:10";
@@ -79,15 +78,33 @@ class MeetingServiceTest {
 
         // WHEN
         Meeting overlappingMeeting = meetingService
-            .createNewMeeting(overlappingMeetingName,
-                overlappingMeetingDateTimeString,
-                overlappingParticipantEmails,
-                OverlappingMeetingDuration);
+                .createNewMeeting(overlappingMeetingName,
+                        overlappingMeetingDateTimeString,
+                        overlappingParticipantEmails,
+                        OverlappingMeetingDuration);
 
         // THEN
         List<Meeting> allMeetings = meetingService.getAllMeetings();
         assertThat(allMeetings).hasSize(2);
     }
 
+    @Test
+    void should_delete_meeting_by_correctly() {
 
+        // GIVEN
+        MeetingRepository meetingRepository = new MeetingRepository();
+        Map<Long, Meeting> meetings = new HashMap<>();
+        Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
+        meetings.put(1L, meeting);
+        meetingRepository.save(meeting);
+
+        // WHEN
+        MeetingService meetingService = new MeetingService();
+        UUID meetingIdToDelete = meeting.getMeetingId();
+        meetingService.deleteMeetingById(meetingIdToDelete);
+
+        // THEN
+        assertThat(meetingService.getAllMeetings()).hasSize(0);
+        assertThat(meetingService.getAllMeetings()).doesNotContain(meeting);
+    }
 }

@@ -92,7 +92,7 @@ public class MeetingApp {
         }
 
         Meeting newMeeting =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
 
         System.out.println("Spotkanie " + newMeeting + " zostało utworzone.");
     }
@@ -101,9 +101,6 @@ public class MeetingApp {
         System.out.println("Podaj Id: ");
         UUID inputId = UUID.fromString(scanner.nextLine());
         meetingService.deleteMeetingById(inputId);
-        System.out.println("Spotkanie usunięto");
-//        meetingService.getAllMeetings();
-//        System.out.println("Usuwanie spotkań nie zostało jeszcze zaimplementowane");
+        meetingService.getAllMeetings();
     }
-
 }

@@ -17,12 +17,18 @@ public class MeetingService {
         return meeting;
     }
 
-
     public List<Meeting> getAllMeetings() {
         return meetingRepository.findAll();
     }
 
     public void deleteMeetingById(UUID meetingId) {
-        meetingRepository.deleteById(meetingId);
+        Map<Long, Meeting> meetings = meetingRepository.getMeetings();
+        Iterator<Map.Entry<Long, Meeting>> iterator = meetings.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Long, Meeting> entry = iterator.next();
+            if (entry.getValue().getMeetingId().equals(meetingId)) {
+                iterator.remove();
+            }
+        }
     }
 }
