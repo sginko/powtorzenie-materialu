@@ -89,7 +89,7 @@ class MeetingServiceTest {
     }
 
     @Test
-    void should_delete_meeting_by_correctly() {
+    void should_delete_meeting_by_id_correctly() {
 
         // GIVEN
         MeetingRepository meetingRepository = new MeetingRepository();
