@@ -53,12 +53,12 @@ public class Meeting {
     @Override
     public String toString() {
         return "Meeting{" +
-            "meetingId=" + meetingId +
-            ", name='" + name + '\'' +
-            ", dateAndTime=" + dateAndTime +
-            ", participantEmail=" + participantEmail +
-            ", meetingDuration=" + meetingDuration +
-            '}';
+                "meetingId=" + meetingId +
+                ", name='" + name + '\'' +
+                ", dateAndTime=" + dateAndTime +
+                ", participantEmail=" + participantEmail +
+                ", meetingDuration=" + meetingDuration +
+                '}';
     }
 
     @Override
@@ -71,9 +71,9 @@ public class Meeting {
         }
         Meeting meeting = (Meeting) o;
         return Objects.equals(meetingId, meeting.meetingId) && Objects.equals(name, meeting.name) &&
-            Objects.equals(dateAndTime, meeting.dateAndTime) &&
-            Objects.equals(participantEmail, meeting.participantEmail) &&
-            Objects.equals(meetingDuration, meeting.meetingDuration);
+                Objects.equals(dateAndTime, meeting.dateAndTime) &&
+                Objects.equals(participantEmail, meeting.participantEmail) &&
+                Objects.equals(meetingDuration, meeting.meetingDuration);
     }
 
     @Override

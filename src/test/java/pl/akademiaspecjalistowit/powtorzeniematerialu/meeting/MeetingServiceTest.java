@@ -1,6 +1,5 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 import java.util.*;
@@ -90,26 +89,22 @@ class MeetingServiceTest {
     }
 
     @Test
-    void should_find_meeting_by_email_correctly() {
+    void should_delete_meeting_by_id_correctly() {
 
         // GIVEN
-        List<Meeting> allMeetings = new ArrayList<>();
-        Meeting meeting1 = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test1@example.com"), "01:00");
-        Meeting meeting2 = new Meeting("Meeting 2", "01:01:2024 12:00", Set.of("test2@example.com"), "01:00");
-        Meeting meeting3 = new Meeting("Meeting 3", "01:01:2024 14:00", Set.of("test3@example.com"), "01:00");
-        allMeetings.add(meeting1);
-        allMeetings.add(meeting2);
-        allMeetings.add(meeting3);
+        MeetingRepository meetingRepository = new MeetingRepository();
+        Map<Long, Meeting> meetings = new HashMap<>();
+        Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
+        meetings.put(1L, meeting);
+        meetingRepository.save(meeting);
 
         // WHEN
         MeetingService meetingService = new MeetingService();
-        try {
-            List<Meeting> meetingsByEmail = meetingService.getMeetingsByEmail("test2@example.com");
-            assertThat(meetingsByEmail).contains(meeting2);
-            // THEN
-        } catch (MeetingException e) {
-            System.out.printf("Not found ");
-        }
+        UUID meetingIdToDelete = meeting.getMeetingId();
+        meetingService.deleteMeetingById(meetingIdToDelete);
 
+        // THEN
+        assertThat(meetingService.getAllMeetings()).hasSize(0);
+        assertThat(meetingService.getAllMeetings()).doesNotContain(meeting);
     }
 }
