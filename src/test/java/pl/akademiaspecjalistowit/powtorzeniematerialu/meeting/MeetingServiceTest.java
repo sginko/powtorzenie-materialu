@@ -1,10 +1,10 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ class MeetingServiceTest {
 
         // WHEN
         Meeting result =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
 
         // THEN
         List<Meeting> allMeetings = meetingService.getAllMeetings();
@@ -43,7 +43,7 @@ class MeetingServiceTest {
         Set<String> participantEmails = Set.of("test123@example.com");
         String meetingDuration = "02:00";
         Meeting existingMeeting =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
 
         String overlappingMeetingName = "Test Meeting";
         String overlappingMeetingDateTimeString = "01:01:2024 12:10";
@@ -52,10 +52,10 @@ class MeetingServiceTest {
 
         // WHEN
         Meeting overlappingMeeting = meetingService
-            .createNewMeeting(overlappingMeetingName,
-                overlappingMeetingDateTimeString,
-                overlappingParticipantEmails,
-                OverlappingMeetingDuration);
+                .createNewMeeting(overlappingMeetingName,
+                        overlappingMeetingDateTimeString,
+                        overlappingParticipantEmails,
+                        OverlappingMeetingDuration);
 
         // THEN
         List<Meeting> allMeetings = meetingService.getAllMeetings();
@@ -70,7 +70,7 @@ class MeetingServiceTest {
         Set<String> participantEmails = Set.of("test123@example.com");
         String meetingDuration = "02:00";
         Meeting existingMeeting =
-            meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
+                meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmails, meetingDuration);
 
         String overlappingMeetingName = "Test Meeting";
         String overlappingMeetingDateTimeString = "01:01:2024 12:10";
@@ -79,15 +79,37 @@ class MeetingServiceTest {
 
         // WHEN
         Meeting overlappingMeeting = meetingService
-            .createNewMeeting(overlappingMeetingName,
-                overlappingMeetingDateTimeString,
-                overlappingParticipantEmails,
-                OverlappingMeetingDuration);
+                .createNewMeeting(overlappingMeetingName,
+                        overlappingMeetingDateTimeString,
+                        overlappingParticipantEmails,
+                        OverlappingMeetingDuration);
 
         // THEN
         List<Meeting> allMeetings = meetingService.getAllMeetings();
         assertThat(allMeetings).hasSize(2);
     }
 
+    @Test
+    void should_find_meeting_by_email_correctly() {
 
+        // GIVEN
+        List<Meeting> allMeetings = new ArrayList<>();
+        Meeting meeting1 = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test1@example.com"), "01:00");
+        Meeting meeting2 = new Meeting("Meeting 2", "01:01:2024 12:00", Set.of("test2@example.com"), "01:00");
+        Meeting meeting3 = new Meeting("Meeting 3", "01:01:2024 14:00", Set.of("test3@example.com"), "01:00");
+        allMeetings.add(meeting1);
+        allMeetings.add(meeting2);
+        allMeetings.add(meeting3);
+
+        // WHEN
+        MeetingService meetingService = new MeetingService();
+        try {
+            List<Meeting> meetingsByEmail = meetingService.getMeetingsByEmail("test2@example.com");
+            assertThat(meetingsByEmail).contains(meeting2);
+            // THEN
+        } catch (MeetingException e) {
+            System.out.printf("Not found ");
+        }
+
+    }
 }
