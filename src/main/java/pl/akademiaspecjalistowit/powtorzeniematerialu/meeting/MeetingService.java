@@ -50,4 +50,8 @@ public class MeetingService {
             }
         }
     }
+
+    public  List<Meeting> getMeetingByEmail(String email){
+        return meetingRepository.findByEmail(email);
+    }
 }

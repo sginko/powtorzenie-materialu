@@ -77,11 +77,11 @@ class MeetingServiceTest {
         String OverlappingMeetingDuration = "01:00";
 
         // WHEN
-        Meeting overlappingMeeting = meetingService
-                .createNewMeeting(overlappingMeetingName,
-                        overlappingMeetingDateTimeString,
-                        overlappingParticipantEmails,
-                        OverlappingMeetingDuration);
+//        Meeting overlappingMeeting = meetingService
+//                .createNewMeeting(overlappingMeetingName,
+//                        overlappingMeetingDateTimeString,
+//                        overlappingParticipantEmails,
+//                        OverlappingMeetingDuration);
         try {
             Meeting overlappingMeeting = meetingService
                     .createNewMeeting(overlappingMeetingName,
@@ -115,5 +115,28 @@ class MeetingServiceTest {
         // THEN
         assertThat(meetingService.getAllMeetings()).hasSize(0);
         assertThat(meetingService.getAllMeetings()).doesNotContain(meeting);
+    }
+
+    @Test
+    void should_find_meeting_by_email_correctly() {
+
+        // GIVEN
+        List<Meeting> allMeetings = new ArrayList<>();
+        Meeting meeting1 = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test1@example.com"), "01:00");
+        Meeting meeting2 = new Meeting("Meeting 2", "01:01:2024 12:00", Set.of("test2@example.com"), "01:00");
+        Meeting meeting3 = new Meeting("Meeting 3", "01:01:2024 14:00", Set.of("test3@example.com"), "01:00");
+        allMeetings.add(meeting1);
+        allMeetings.add(meeting2);
+        allMeetings.add(meeting3);
+
+        // WHEN
+        MeetingService meetingService = new MeetingService();
+        try {
+            List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
+            assertThat(meetingsByEmail).contains(meeting2);
+            // THEN
+        } catch (MeetingException e) {
+            System.out.printf("Not found ");
+        }
     }
 }

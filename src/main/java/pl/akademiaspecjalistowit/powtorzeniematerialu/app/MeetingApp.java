@@ -34,6 +34,7 @@ public class MeetingApp {
         System.out.println("1) Nowe spotkanie");
         System.out.println("2) Pokaż wszystkie spotkania");
         System.out.println("3) Usuń spotkanie");
+        System.out.println("4) Pokaż spotkania dla użutkownika");
         System.out.print("Wpisz komendę: ");
         String command = scanner.nextLine();
 
@@ -46,6 +47,9 @@ public class MeetingApp {
                 break;
             case "3":
                 deleteMeeting(scanner);
+                break;
+            case "4":
+                shoeMeetingForEmail(scanner);
                 break;
             case "exit":
                 System.out.println("Zamykanie aplikacji...");
@@ -86,7 +90,7 @@ public class MeetingApp {
             participantEmail.add(scanner.nextLine());
             System.out.println("Chcesz dodać więcej uczestników?: (T/N)");
             String decission = scanner.nextLine();
-            if (decission.equals("N")) {
+            if (decission.equalsIgnoreCase("N")) {
                 stop = true;
             }
         }
@@ -102,5 +106,14 @@ public class MeetingApp {
         UUID inputId = UUID.fromString(scanner.nextLine());
         meetingService.deleteMeetingById(inputId);
         meetingService.getAllMeetings();
+    }
+
+    private void shoeMeetingForEmail(Scanner scanner) {
+        System.out.println("Podaj Email użytkownika: ");
+        String meetEmail = scanner.nextLine();
+        List<Meeting> allMeetings = meetingService.getMeetingByEmail(meetEmail);
+        for (Meeting allMeeting : allMeetings) {
+            System.out.println(allMeeting);
+        }
     }
 }

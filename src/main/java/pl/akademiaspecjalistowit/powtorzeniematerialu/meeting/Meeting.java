@@ -87,6 +87,7 @@ public class Meeting {
 
     public LocalDateTime getDateAndTime() {
         return dateAndTime;
+
     }
 
     public Set<String> getParticipantEmail() {
@@ -96,8 +97,8 @@ public class Meeting {
     public Duration getMeetingDuration() {
         return meetingDuration;
     }
-
-    public Set<String> getParticipantEmail() {
-        return participantEmail;
-    }
+//
+//    public Set<String> getParticipantEmail() {
+//        return participantEmail;
+//    }
 }
