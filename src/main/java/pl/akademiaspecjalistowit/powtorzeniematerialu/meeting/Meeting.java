@@ -81,6 +81,22 @@ public class Meeting {
         return Objects.hash(meetingId, name, dateAndTime, participantEmail, meetingDuration);
     }
 
+    public UUID getMeetingId() {
+        return meetingId;
+    }
+
+    public LocalDateTime getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public Set<String> getParticipantEmail() {
+        return participantEmail;
+    }
+
+    public Duration getMeetingDuration() {
+        return meetingDuration;
+    }
+
     public Set<String> getParticipantEmail() {
         return participantEmail;
     }

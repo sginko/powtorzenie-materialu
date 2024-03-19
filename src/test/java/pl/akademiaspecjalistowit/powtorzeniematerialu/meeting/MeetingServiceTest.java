@@ -62,7 +62,7 @@ class MeetingServiceTest {
     }
 
     @Test
-    void making_overlapping_meetings_for_these_same_participants_is_possible() {
+    void making_overlapping_meetings_for_these_same_participants_is_not_possible() {
         // GIVEN
         String meetingName = "Test Meeting";
         String meetingDateTimeString = "01:01:2024 12:00";
@@ -82,10 +82,19 @@ class MeetingServiceTest {
                         overlappingMeetingDateTimeString,
                         overlappingParticipantEmails,
                         OverlappingMeetingDuration);
+        try {
+            Meeting overlappingMeeting = meetingService
+                    .createNewMeeting(overlappingMeetingName,
+                            overlappingMeetingDateTimeString,
+                            overlappingParticipantEmails,
+                            OverlappingMeetingDuration);
 
-        // THEN
+            // THEN
+        } catch (MeetingException e){
+            System.out.printf("");;
+        }
         List<Meeting> allMeetings = meetingService.getAllMeetings();
-        assertThat(allMeetings).hasSize(2);
+        assertThat(allMeetings).hasSize(1);
     }
 
     @Test
