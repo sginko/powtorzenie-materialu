@@ -1,9 +1,6 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.app;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
@@ -37,7 +34,6 @@ public class MeetingApp {
         System.out.println("1) Nowe spotkanie");
         System.out.println("2) Pokaż wszystkie spotkania");
         System.out.println("3) Usuń spotkanie");
-        System.out.println("4) Pokaż spotkania dla użytkownika");
         System.out.print("Wpisz komendę: ");
         String command = scanner.nextLine();
 
@@ -50,9 +46,6 @@ public class MeetingApp {
                 break;
             case "3":
                 deleteMeeting(scanner);
-                break;
-            case "4":
-                showMeetingsForEmail(scanner);
                 break;
             case "exit":
                 System.out.println("Zamykanie aplikacji...");
@@ -105,16 +98,9 @@ public class MeetingApp {
     }
 
     private void deleteMeeting(Scanner scanner) {
-        System.out.println("Usuwanie spotkań nie zostało jeszcze zaimplementowane");
+        System.out.println("Podaj Id: ");
+        UUID inputId = UUID.fromString(scanner.nextLine());
+        meetingService.deleteMeetingById(inputId);
+        meetingService.getAllMeetings();
     }
-
-    private void showMeetingsForEmail(Scanner scanner) {
-        System.out.println("Podaj email użytkownika: ");
-        String meetEmail = scanner.nextLine();
-        List<Meeting> allMeetings = meetingService.getMeetingsByEmail(meetEmail);
-        for (Meeting allMeeting : allMeetings) {
-            System.out.println(allMeeting);
-        }
-    }
-
 }
