@@ -2,7 +2,6 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import java.util.*;
 import java.time.LocalDateTime;
-import java.util.*;
 
 public class MeetingService {
 

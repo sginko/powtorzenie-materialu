@@ -97,8 +97,4 @@ public class Meeting {
     public Duration getMeetingDuration() {
         return meetingDuration;
     }
-//
-//    public Set<String> getParticipantEmail() {
-//        return participantEmail;
-//    }
 }

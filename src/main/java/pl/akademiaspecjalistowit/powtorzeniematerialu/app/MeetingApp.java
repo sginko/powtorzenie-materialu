@@ -105,7 +105,6 @@ public class MeetingApp {
         System.out.println("Podaj Id: ");
         UUID inputId = UUID.fromString(scanner.nextLine());
         meetingService.deleteMeetingById(inputId);
-        meetingService.getAllMeetings();
     }
 
     private void shoeMeetingForEmail(Scanner scanner) {

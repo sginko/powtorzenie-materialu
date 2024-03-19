@@ -1,9 +1,7 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
-
 import java.util.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,12 +74,7 @@ class MeetingServiceTest {
         Set<String> overlappingParticipantEmails = Set.of("test123@example.com");
         String OverlappingMeetingDuration = "01:00";
 
-        // WHEN
-//        Meeting overlappingMeeting = meetingService
-//                .createNewMeeting(overlappingMeetingName,
-//                        overlappingMeetingDateTimeString,
-//                        overlappingParticipantEmails,
-//                        OverlappingMeetingDuration);
+//         WHEN
         try {
             Meeting overlappingMeeting = meetingService
                     .createNewMeeting(overlappingMeetingName,
@@ -106,10 +99,10 @@ class MeetingServiceTest {
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
         meetingRepository.save(meeting);
-
-        // WHEN
         MeetingService meetingService = new MeetingService();
         UUID meetingIdToDelete = meeting.getMeetingId();
+
+        // WHEN
         meetingService.deleteMeetingById(meetingIdToDelete);
 
         // THEN
