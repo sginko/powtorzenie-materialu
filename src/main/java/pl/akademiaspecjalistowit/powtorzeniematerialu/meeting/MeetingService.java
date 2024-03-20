@@ -7,15 +7,15 @@ public class MeetingService {
     private static MeetingService meetingService;
     private MeetingRepository meetingRepository;
 
-    public static synchronized MeetingService getMeetingService() {
+    public static synchronized MeetingService getMeetingService(MeetingRepository meetingRepository) {
         if (meetingService == null) {
-            meetingService = new MeetingService();
+            meetingService = new MeetingService(meetingRepository);
         }
         return meetingService;
     }
 
-    private MeetingService() {
-        meetingRepository = MeetingRepository.getMeetingRepository();
+    private MeetingService(MeetingRepository meetingRepository) {
+        this.meetingRepository = meetingRepository;
     }
 
     public Meeting createNewMeeting(String meetingName, String meetingDateTimeString, Set<String> participantEmail,

@@ -3,6 +3,7 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.app;
 import java.util.*;
 
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingRepository;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
 
 public class MeetingApp {
@@ -11,7 +12,8 @@ public class MeetingApp {
 
 
     public MeetingApp() {
-        this.meetingService = MeetingService.getMeetingService();
+        MeetingRepository meetingRepository = MeetingRepository.getMeetingRepository(new HashMap<>());
+        this.meetingService = MeetingService.getMeetingService(meetingRepository);
     }
 
     public void run() {

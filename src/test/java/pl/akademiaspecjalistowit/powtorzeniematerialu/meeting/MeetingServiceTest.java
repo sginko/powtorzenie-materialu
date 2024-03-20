@@ -1,23 +1,35 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+
 import java.util.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MeetingServiceTest {
 
     private MeetingService meetingService;
+    Map<Long, Meeting> meetings = new HashMap<>();
+    private MeetingRepository meetingRepository;
 
     @BeforeEach
     void setUp() {
-        meetingService = MeetingService.getMeetingService();
+        meetingRepository = MeetingRepository.getMeetingRepository(meetings);
+        meetingService = MeetingService.getMeetingService(meetingRepository);
+    }
+
+    @AfterEach
+    void tearDown() {
+        meetings.clear();
     }
 
     @Test
     void should_create_meeting_correctly() {
         // GIVEN
-        meetingService = MeetingService.getMeetingService();
+        meetingService = MeetingService.getMeetingService(meetingRepository);
         String meetingName = "Test Meeting";
         String meetingDateTimeString = "01:01:2024 12:00";
         Set<String> participantEmails = new HashSet<>();
@@ -84,8 +96,9 @@ class MeetingServiceTest {
                             OverlappingMeetingDuration);
 
             // THEN
-        } catch (MeetingException e){
-            System.out.printf("");;
+        } catch (MeetingException e) {
+            System.out.printf("");
+            ;
         }
         List<Meeting> allMeetings = meetingService.getAllMeetings();
         assertThat(allMeetings).hasSize(1);
@@ -95,12 +108,12 @@ class MeetingServiceTest {
     void should_delete_meeting_by_id_correctly() {
 
         // GIVEN
-        MeetingRepository meetingRepository =  MeetingRepository.getMeetingRepository();
+        MeetingRepository meetingRepository = MeetingRepository.getMeetingRepository(new HashMap<>());
         Map<Long, Meeting> meetings = new HashMap<>();
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
         meetingRepository.save(meeting);
-        MeetingService meetingService = MeetingService.getMeetingService();
+        MeetingService meetingService = MeetingService.getMeetingService(meetingRepository);
         UUID meetingIdToDelete = meeting.getMeetingId();
 
         // WHEN
@@ -124,7 +137,7 @@ class MeetingServiceTest {
         allMeetings.add(meeting3);
 
         // WHEN
-        MeetingService meetingService =  MeetingService.getMeetingService();
+        MeetingService meetingService = MeetingService.getMeetingService(meetingRepository);
         try {
             List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
             assertThat(meetingsByEmail).contains(meeting2);

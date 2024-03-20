@@ -7,15 +7,15 @@ public class MeetingRepository {
 
     private Map<Long, Meeting> meetings;
 
-    public static synchronized MeetingRepository getMeetingRepository(){
+    public static synchronized MeetingRepository getMeetingRepository(Map<Long, Meeting> meetings){
         if (meetingRepository == null){
-            meetingRepository = new MeetingRepository();
+            meetingRepository = new MeetingRepository(meetings);
         }
         return meetingRepository;
     }
 
-    private MeetingRepository() {
-        meetings = new HashMap<>();
+    private MeetingRepository(Map<Long, Meeting> meetings) {
+        this.meetings = meetings;
     }
 
     public void save(Meeting meeting) {
