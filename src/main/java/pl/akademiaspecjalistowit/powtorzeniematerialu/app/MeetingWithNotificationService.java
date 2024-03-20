@@ -20,22 +20,23 @@ public class MeetingWithNotificationService implements MeetingService {
 
     @Override
     public Meeting createNewMeeting(String meetingName, String meetingDateTimeString, Set<String> participantEmail, String meetingDuration) {
-        meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
-        notificationService.notifyParticipants(ne);
+        Meeting newMeeting = meetingService.createNewMeeting(meetingName, meetingDateTimeString, participantEmail, meetingDuration);
+        notificationService.notifyParticipants(newMeeting.getParticipantEmail());
+        return newMeeting;
     }
 
     @Override
     public void deleteMeetingById(UUID meetingId) {
-
+        meetingService.deleteMeetingById(meetingId);
     }
 
     @Override
     public List<Meeting> getAllMeetings() {
-        return null;
+        return meetingService.getAllMeetings();
     }
 
     @Override
     public List<Meeting> getMeetingByEmail(String email) {
-        return null;
+        return meetingService.getMeetingByEmail(email);
     }
 }
