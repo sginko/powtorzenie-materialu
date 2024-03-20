@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 class MeetingServiceTest {
 
-    private MeetingService meetingService;
+    private MeetingServiceImpl meetingService;
 
     @BeforeEach
     void setUp() {
-        meetingService = new MeetingService();
+        meetingService = new MeetingServiceImpl();
     }
 
     @Test
@@ -99,7 +99,7 @@ class MeetingServiceTest {
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
         meetingRepository.save(meeting);
-        MeetingService meetingService = new MeetingService();
+        MeetingServiceImpl meetingService = new MeetingServiceImpl();
         UUID meetingIdToDelete = meeting.getMeetingId();
 
         // WHEN
@@ -123,7 +123,7 @@ class MeetingServiceTest {
         allMeetings.add(meeting3);
 
         // WHEN
-        MeetingService meetingService = new MeetingService();
+        MeetingServiceImpl meetingService = new MeetingServiceImpl();
         try {
             List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
             assertThat(meetingsByEmail).contains(meeting2);

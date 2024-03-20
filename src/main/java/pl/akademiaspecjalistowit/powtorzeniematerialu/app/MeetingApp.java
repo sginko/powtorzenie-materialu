@@ -3,15 +3,15 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.app;
 import java.util.*;
 
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
-import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingServiceImpl;
 
 public class MeetingApp {
 
-    private MeetingService meetingService;
+    private MeetingServiceImpl meetingService;
 
 
     public MeetingApp() {
-        this.meetingService = new MeetingService();
+        this.meetingService = new MeetingServiceImpl();
     }
 
     public void run() {
