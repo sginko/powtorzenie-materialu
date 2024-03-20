@@ -3,10 +3,18 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 import java.util.*;
 
 public class MeetingRepository {
+    private static MeetingRepository meetingRepository;
 
     private Map<Long, Meeting> meetings;
 
-    public MeetingRepository() {
+    public static synchronized MeetingRepository getMeetingRepository(){
+        if (meetingRepository == null){
+            meetingRepository = new MeetingRepository();
+        }
+        return meetingRepository;
+    }
+
+    private MeetingRepository() {
         meetings = new HashMap<>();
     }
 

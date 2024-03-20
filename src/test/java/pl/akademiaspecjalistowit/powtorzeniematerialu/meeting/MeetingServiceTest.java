@@ -11,7 +11,7 @@ class MeetingServiceTest {
 
     @BeforeEach
     void setUp() {
-        meetingService = new MeetingService();
+        meetingService = MeetingService.getMeetingService();
     }
 
     @Test
@@ -94,12 +94,12 @@ class MeetingServiceTest {
     void should_delete_meeting_by_id_correctly() {
 
         // GIVEN
-        MeetingRepository meetingRepository = new MeetingRepository();
+        MeetingRepository meetingRepository =  MeetingRepository.getMeetingRepository();
         Map<Long, Meeting> meetings = new HashMap<>();
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
         meetingRepository.save(meeting);
-        MeetingService meetingService = new MeetingService();
+        MeetingService meetingService = MeetingService.getMeetingService();
         UUID meetingIdToDelete = meeting.getMeetingId();
 
         // WHEN
@@ -123,7 +123,7 @@ class MeetingServiceTest {
         allMeetings.add(meeting3);
 
         // WHEN
-        MeetingService meetingService = new MeetingService();
+        MeetingService meetingService =  MeetingService.getMeetingService();
         try {
             List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
             assertThat(meetingsByEmail).contains(meeting2);

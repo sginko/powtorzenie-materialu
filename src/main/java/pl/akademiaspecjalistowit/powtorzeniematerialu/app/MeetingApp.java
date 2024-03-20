@@ -11,7 +11,7 @@ public class MeetingApp {
 
 
     public MeetingApp() {
-        this.meetingService = new MeetingService();
+        this.meetingService = MeetingService.getMeetingService();
     }
 
     public void run() {

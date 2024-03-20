@@ -4,11 +4,18 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 public class MeetingService {
-
+    private static MeetingService meetingService;
     private MeetingRepository meetingRepository;
 
-    public MeetingService() {
-        meetingRepository = new MeetingRepository();
+    public static synchronized MeetingService getMeetingService() {
+        if (meetingService == null) {
+            meetingService = new MeetingService();
+        }
+        return meetingService;
+    }
+
+    private MeetingService() {
+        meetingRepository = MeetingRepository.getMeetingRepository();
     }
 
     public Meeting createNewMeeting(String meetingName, String meetingDateTimeString, Set<String> participantEmail,
@@ -50,7 +57,7 @@ public class MeetingService {
         }
     }
 
-    public  List<Meeting> getMeetingByEmail(String email){
+    public List<Meeting> getMeetingByEmail(String email) {
         return meetingRepository.findByEmail(email);
     }
 }
