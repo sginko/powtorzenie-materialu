@@ -17,6 +17,7 @@ class MeetingServiceTest {
     @Test
     void should_create_meeting_correctly() {
         // GIVEN
+        meetingService = MeetingService.getMeetingService();
         String meetingName = "Test Meeting";
         String meetingDateTimeString = "01:01:2024 12:00";
         Set<String> participantEmails = new HashSet<>();
