@@ -1,17 +1,24 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+
 import java.util.*;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MeetingServiceTest {
-
     private MeetingService meetingService;
 
     @BeforeEach
     void setUp() {
         meetingService = MeetingService.getMeetingService();
+    }
+
+    @AfterEach
+    void tearDown() {
+        MeetingRepository.getMeetingRepository().getMeetings().clear();
     }
 
     @Test
@@ -84,8 +91,9 @@ class MeetingServiceTest {
                             OverlappingMeetingDuration);
 
             // THEN
-        } catch (MeetingException e){
-            System.out.printf("");;
+        } catch (MeetingException e) {
+            System.out.printf("");
+            ;
         }
         List<Meeting> allMeetings = meetingService.getAllMeetings();
         assertThat(allMeetings).hasSize(1);
@@ -95,7 +103,7 @@ class MeetingServiceTest {
     void should_delete_meeting_by_id_correctly() {
 
         // GIVEN
-        MeetingRepository meetingRepository =  MeetingRepository.getMeetingRepository();
+        MeetingRepository meetingRepository = MeetingRepository.getMeetingRepository();
         Map<Long, Meeting> meetings = new HashMap<>();
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
@@ -124,7 +132,7 @@ class MeetingServiceTest {
         allMeetings.add(meeting3);
 
         // WHEN
-        MeetingService meetingService =  MeetingService.getMeetingService();
+        MeetingService meetingService = MeetingService.getMeetingService();
         try {
             List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
             assertThat(meetingsByEmail).contains(meeting2);
