@@ -14,7 +14,7 @@ public class MeetingApp {
 
 
     public MeetingApp() {
-        this.meetingService = new MeetingWithNotificationService(new MeetingServiceImpl() , new NotificationsServiceImpl());
+        this.meetingService = new MeetingWithNotificationService(MeetingServiceImpl.getMeetingService() , new NotificationsServiceImpl());
     }
 
     public void run() {
