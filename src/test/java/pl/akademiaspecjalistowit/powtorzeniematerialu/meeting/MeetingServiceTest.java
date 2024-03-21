@@ -1,22 +1,30 @@
 package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+
 import java.util.*;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MeetingServiceTest {
-
     private MeetingService meetingService;
 
     @BeforeEach
     void setUp() {
-        meetingService = new MeetingService();
+        meetingService = MeetingService.getMeetingService();
+    }
+
+    @AfterEach
+    void tearDown() {
+        MeetingRepository.getMeetingRepository().getMeetings().clear();
     }
 
     @Test
     void should_create_meeting_correctly() {
         // GIVEN
+        meetingService = MeetingService.getMeetingService();
         String meetingName = "Test Meeting";
         String meetingDateTimeString = "01:01:2024 12:00";
         Set<String> participantEmails = new HashSet<>();
@@ -83,8 +91,9 @@ class MeetingServiceTest {
                             OverlappingMeetingDuration);
 
             // THEN
-        } catch (MeetingException e){
-            System.out.printf("");;
+        } catch (MeetingException e) {
+            System.out.printf("");
+            ;
         }
         List<Meeting> allMeetings = meetingService.getAllMeetings();
         assertThat(allMeetings).hasSize(1);
@@ -94,12 +103,12 @@ class MeetingServiceTest {
     void should_delete_meeting_by_id_correctly() {
 
         // GIVEN
-        MeetingRepository meetingRepository = new MeetingRepository();
+        MeetingRepository meetingRepository = MeetingRepository.getMeetingRepository();
         Map<Long, Meeting> meetings = new HashMap<>();
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
         meetingRepository.save(meeting);
-        MeetingService meetingService = new MeetingService();
+        MeetingService meetingService = MeetingService.getMeetingService();
         UUID meetingIdToDelete = meeting.getMeetingId();
 
         // WHEN
@@ -123,7 +132,7 @@ class MeetingServiceTest {
         allMeetings.add(meeting3);
 
         // WHEN
-        MeetingService meetingService = new MeetingService();
+        MeetingService meetingService = MeetingService.getMeetingService();
         try {
             List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
             assertThat(meetingsByEmail).contains(meeting2);

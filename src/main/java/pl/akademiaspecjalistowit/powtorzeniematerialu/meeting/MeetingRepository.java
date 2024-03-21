@@ -3,10 +3,21 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.meeting;
 import java.util.*;
 
 public class MeetingRepository {
-
+    private static MeetingRepository meetingRepository;
     private Map<Long, Meeting> meetings;
 
-    public MeetingRepository() {
+    public static MeetingRepository getMeetingRepository() {
+        if (meetingRepository == null) {
+            synchronized (MeetingRepository.class) {
+                if (meetingRepository == null) {
+                    meetingRepository = new MeetingRepository();
+                }
+            }
+        }
+        return meetingRepository;
+    }
+
+    private MeetingRepository() {
         meetings = new HashMap<>();
     }
 
@@ -25,7 +36,8 @@ public class MeetingRepository {
             if (meeting.getParticipantEmail().contains(email)) {
                 findMeetings.add(meeting);
             }
-        } if (findMeetings.isEmpty()) {
+        }
+        if (findMeetings.isEmpty()) {
             throw new MeetingException("Not found meeting");
         }
         return findMeetings;
