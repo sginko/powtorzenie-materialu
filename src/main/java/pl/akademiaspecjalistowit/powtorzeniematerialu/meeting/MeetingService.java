@@ -5,11 +5,15 @@ import java.time.LocalDateTime;
 
 public class MeetingService {
     private static MeetingService meetingService;
-    private MeetingRepository meetingRepository;
+    private static MeetingRepository meetingRepository;
 
-    public static synchronized MeetingService getMeetingService() {
+    public static MeetingService getMeetingService() {
         if (meetingService == null) {
-            meetingService = new MeetingService();
+            synchronized (MeetingService.class) {
+                if (meetingService == null) {
+                    meetingService = new MeetingService();
+                }
+            }
         }
         return meetingService;
     }

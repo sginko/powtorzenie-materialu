@@ -4,12 +4,15 @@ import java.util.*;
 
 public class MeetingRepository {
     private static MeetingRepository meetingRepository;
-
     private Map<Long, Meeting> meetings;
 
-    public static synchronized MeetingRepository getMeetingRepository(){
-        if (meetingRepository == null){
-            meetingRepository = new MeetingRepository();
+    public static MeetingRepository getMeetingRepository() {
+        if (meetingRepository == null) {
+            synchronized (MeetingRepository.class) {
+                if (meetingRepository == null) {
+                    meetingRepository = new MeetingRepository();
+                }
+            }
         }
         return meetingRepository;
     }
@@ -33,7 +36,8 @@ public class MeetingRepository {
             if (meeting.getParticipantEmail().contains(email)) {
                 findMeetings.add(meeting);
             }
-        } if (findMeetings.isEmpty()) {
+        }
+        if (findMeetings.isEmpty()) {
             throw new MeetingException("Not found meeting");
         }
         return findMeetings;
