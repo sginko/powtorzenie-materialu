@@ -3,6 +3,7 @@ package pl.akademiaspecjalistowit.powtorzeniematerialu.app;
 import java.util.*;
 
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingRepository;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingServiceImpl;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.notification.NotificationsServiceImpl;
