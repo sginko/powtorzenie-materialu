@@ -13,7 +13,7 @@ class MeetingServiceTest {
 
     @BeforeEach
     void setUp() {
-        meetingService = MeetingService.getMeetingService();
+        meetingService = MeetingServiceImpl.getMeetingService();
     }
 
     @AfterEach
@@ -24,7 +24,7 @@ class MeetingServiceTest {
     @Test
     void should_create_meeting_correctly() {
         // GIVEN
-        meetingService = MeetingService.getMeetingService();
+        meetingService = MeetingServiceImpl.getMeetingService();
         String meetingName = "Test Meeting";
         String meetingDateTimeString = "01:01:2024 12:00";
         Set<String> participantEmails = new HashSet<>();
@@ -108,7 +108,7 @@ class MeetingServiceTest {
         Meeting meeting = new Meeting("Meeting 1", "01:01:2024 10:00", Set.of("test123@example.com"), "01:00");
         meetings.put(1L, meeting);
         meetingRepository.save(meeting);
-        MeetingService meetingService = MeetingService.getMeetingService();
+        MeetingService meetingService = MeetingServiceImpl.getMeetingService();
         UUID meetingIdToDelete = meeting.getMeetingId();
 
         // WHEN
@@ -132,7 +132,7 @@ class MeetingServiceTest {
         allMeetings.add(meeting3);
 
         // WHEN
-        MeetingService meetingService = MeetingService.getMeetingService();
+        MeetingService meetingService = MeetingServiceImpl.getMeetingService();
         try {
             List<Meeting> meetingsByEmail = meetingService.getMeetingByEmail("test2@example.com");
             assertThat(meetingsByEmail).contains(meeting2);

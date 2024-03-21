@@ -5,6 +5,8 @@ import java.util.*;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.Meeting;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingRepository;
 import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingService;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.meeting.MeetingServiceImpl;
+import pl.akademiaspecjalistowit.powtorzeniematerialu.notification.NotificationsServiceImpl;
 
 public class MeetingApp {
 
@@ -12,7 +14,7 @@ public class MeetingApp {
 
 
     public MeetingApp() {
-        this.meetingService = MeetingService.getMeetingService();
+        this.meetingService = new MeetingWithNotificationService(MeetingServiceImpl.getMeetingService() , new NotificationsServiceImpl());
     }
 
     public void run() {
